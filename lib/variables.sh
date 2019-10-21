@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+set -e
+
+# make it so you can run from any directory: https://stackoverflow.com/a/16349776/726368
+#cd "${0%/*}"
+
+DEVKIT_HOME=$( cd "${BASH_SOURCE[0]%/*}" && cd .. && pwd )
+
+source $(realpath "${DEVKIT_HOME}/lib/paths.sh")
+
+############################################################
+############################################################
+
+## BOOTSTRAP ##
+source "${PROJECT_HOME}/lib/bash-oo-framework/lib/oo-bootstrap.sh"
+source "${PROJECT_HOME}/lib/functions.sh"
+
+import util/exception
+import util/
+
+namespace evo
+
+## ADD OUTPUT OF "evo" TO DELEGATE STDERR
+Log::AddOutput evo INFO
+Log::AddOutput debug DEBUG
+Log::AddOutput default DEBUG
+
+Log::AddOutput devkit DEBUG
+Log::AddOutput devkit-sysd DEBUG
+Log::AddOutput devkit-sshd DEBUG
+Log::AddOutput devkit-vpnd DEBUG
+
+to_devkit_home_absolute() {
+    echo $(realpath "${DEVKIT_HOME}/$1")
+}
+
+run_devkit_home_relative_script() {
+    FILE_NAME=$1
+    ABSOLUTE_FILE_NAME=$(to_devkit_home_absolute ${FILE_NAME})
+
+    exec ${ABSOLUTE_FILE_NAME}
+}
+
+run_docker_build_script() {
+    NAME=$1
+    FILE_NAME="docker/$NAME/build.sh"
+    ABSOLUTE_FILE_NAME=$(to_devkit_home_absolute ${FILE_NAME})
+
+    exec ${ABSOLUTE_FILE_NAME}
+}
+
+# doesn't work?
+#docker-ip() {
+#  docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+#}
+
+announce() {
+    Log ""
+    Log "DEVKIT_HOME: ${DEVKIT_HOME}"
+    Log "PROJECT_HOME: ${DEVKIT_HOME}"
+    Log ""
+    Log "FILE_DOCKER_COMPOSE: ${FILE_DOCKER_COMPOSE}"
+    Log "FILE_AUTHORIZED_KEYS: ${FILE_AUTHORIZED_KEYS}"
+    Log "NAME_DOCKER_CONTAINER_VPN: ${NAME_DOCKER_CONTAINER_VPND}"
+    Log ""
+}

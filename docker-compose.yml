@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+
+  box:
+    image: evo/devkit:box
+    restart: unless-stopped
+    container_name: devkit_ebin
+    stdin_open: true # TODO: verify required
+    tty: true # TODO: verify required
+
+    # cap_add, security_opt, and volume required for the image to function
+    privileged: true
+    networks:
+      - outside
+    ports:
+      - "2221:22"
+    security_opt:
+      - label:disable       # TODO: verify required
+      - seccomp:unconfined  # TODO: verify required
+    cap_add:                # TODO: verify required
+      - net_admin
+    tmpfs:
+      - /run
+      - /run/lock
+
+networks:
+  outside:
+    external: true
