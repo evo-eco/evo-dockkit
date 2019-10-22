@@ -4,8 +4,9 @@ version: '3.4'
 
 services:
 
-  devkit-ansible:
+  devkit_example_ansible:
     image: evo/devkit:bin
+    container_name: devkit_example_ansible
     restart: unless-stopped
     ports:
       - "2222:22"           # needed for ssh (should match ansible-playbook setting)

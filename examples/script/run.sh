@@ -12,4 +12,4 @@ docker-compose down
 
 docker-compose up -d
 
-ansible-playbook ansible-playbook.yml
+docker exec devkit_example_script /home/pi/hello-world.sh

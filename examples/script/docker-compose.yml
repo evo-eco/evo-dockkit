@@ -1,31 +1,20 @@
 version: '3.4'
 
+# https://github.com/defn/docker-systemd
+
 services:
 
-  box:
-    image: evo/devkit:box
+  devkit_example_script:
+    image: evo/devkit:bin
+    container_name: devkit_example_script
     restart: unless-stopped
-    container_name: devkit_box
-#    stdin_open: true # TODO: verify required
-#    tty: true # TODO: verify required
-
-    # cap_add, security_opt, and volume required for the image to function
-#    privileged: true
-    networks:
-      - outside
     ports:
-      - "2222:22"
+      - "2222:22"           # needed for ssh (should match ansible-playbook setting)
     volumes:
-      - ./src:/home/pi/
-#    security_opt:
-#      - label:disable       # TODO: verify required
-#      - seccomp:unconfined  # TODO: verify required
-#    cap_add:                # TODO: verify required
-#      - net_admin
-#    tmpfs:
-#      - /run
-#      - /run/lock
-
-networks:
-  outside:
-    external: true
+      - ./src/hello-world.sh:/home/pi/hello-world.sh
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro # needed for systemd
+    security_opt:
+      - seccomp:unconfined  # needed for systemd
+    tmpfs:
+      - /run                # needed for systemd
+      - /run/lock           # needed for systemd
