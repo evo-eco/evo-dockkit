@@ -23,11 +23,6 @@ Log " >>>> BUILD: ./docker/build.sh ($(pwd))"
 
 popd > /dev/null
 
-if [[ ! "$(docker network ls | grep nginx-proxy)" ]]; then
-  echo "Creating 'outside' network ..."
-  docker network create outside
-fi
-
 echo ""
 echo ""
 
@@ -44,9 +39,10 @@ function ref() {
     echo "$(UI.Color.Green)$1$(UI.Color.Default)";
 }
 
+announce_evo
+
 echo
 echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-echo " Welcome to the jungle."
 echo ""
 echo "  [ IMAGES ]"
 echo ""
@@ -66,3 +62,5 @@ echo "      - ../devkit/docker/$(ref sysd)/Dockerfile                          [
 echo "      - ../devkit/docker/$(ref sysd)/build.sh                            [ docker images -f reference=evo/devkit:sysd ]"
 echo ""
 echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+echo
+echo

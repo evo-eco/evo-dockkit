@@ -64,9 +64,7 @@ announce_env() {
 echo
     subject=env Log ""
     subject=env Log "DEVKIT_HOME: ${DEVKIT_HOME}"
-    subject=env Log "PROJECT_HOME: ${DEVKIT_HOME}"
-    subject=env Log ""
-    subject=env Log "NAME_DOCKER_CONTAINER_VPN: ${NAME_DOCKER_CONTAINER_BOX}"
+    subject=env Log "REPO_HOME: ${REPO_HOME}"
     subject=env Log ""
 echo
 }
