@@ -15,8 +15,12 @@ ADD authorized_keys /root/.ssh/authorized_keys
 RUN chown root:root /root/.ssh/authorized_keys
 RUN chmod 600 /root/.ssh/authorized_keys
 
-#RUN
+RUN apt-get update
+RUN apt-get install -y sudo
+#RUN apt-get install -y nslookup
 
-ENTRYPOINT ["/sbin/init", "--log-target=journal"]
+# https://stackoverflow.com/questions/25845538/how-to-use-sudo-inside-a-docker-container/49529946
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-CMD []
+#ENTRYPOINT ["/sbin/init", "--log-target=journal"]
+#CMD []

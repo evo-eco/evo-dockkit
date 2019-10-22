@@ -19,6 +19,7 @@ announce_evo
 
 echo
 Log " >>>> BUILD: ./docker/build.sh ($(pwd))"
+
 ./docker/build.sh
 
 popd > /dev/null

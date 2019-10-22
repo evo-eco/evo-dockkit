@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # https://stackoverflow.com/a/16349776/726368
 cd "${0%/*}"
 

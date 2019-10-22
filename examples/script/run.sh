@@ -4,11 +4,9 @@ DEVKIT_HOME=../../devkit
 
 set -e
 
-echo $(realpath ${DEVKIT_HOME}/build.sh)
+docker-compose down
 
 ${DEVKIT_HOME}/build.sh
-
-docker-compose down
 
 docker-compose up -d
 
