@@ -1,20 +1,21 @@
 version: '3.4'
 
+# https://github.com/defn/docker-systemd
+
 services:
 
-  box:
+  ansible:
     image: evo/devkit:box
     restart: unless-stopped
-    container_name: devkit_ebin
+    networks:
+      - outside
+    ports:
+      - "2222:22"
     stdin_open: true # TODO: verify required
     tty: true # TODO: verify required
 
     # cap_add, security_opt, and volume required for the image to function
     privileged: true
-    networks:
-      - outside
-    ports:
-      - "2221:22"
     security_opt:
       - label:disable       # TODO: verify required
       - seccomp:unconfined  # TODO: verify required

@@ -1,0 +1,12 @@
+---
+#
+# ansible-playbook check-pings.yml --extra-vars "only=STARBUCKS"
+#
+- hosts: "{{ only | default('all') }}"
+
+  gather_facts: no
+  strategy: free
+
+  tasks:
+    - name: "ping {{ inventory_hostname }}"
+      ping:

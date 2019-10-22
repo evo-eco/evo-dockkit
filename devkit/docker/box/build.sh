@@ -3,4 +3,9 @@
 # https://stackoverflow.com/a/16349776/726368
 cd "${0%/*}"
 
-docker build . -t "evo/devkit:vpnd"
+#Log " >>> SSHd: setup"
+cat ~/.ssh/id_rsa.pub > authorized_keys;
+
+docker build . -t "evo/devkit:box"
+
+rm authorized_keys;

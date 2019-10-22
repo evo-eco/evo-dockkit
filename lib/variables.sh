@@ -3,18 +3,19 @@
 set -e
 
 # make it so you can run from any directory: https://stackoverflow.com/a/16349776/726368
-#cd "${0%/*}"
 
-DEVKIT_HOME=$( cd "${BASH_SOURCE[0]%/*}" && cd .. && pwd )
+{
+    pushd "${BASH_SOURCE[0]%/*}" > /dev/null
+    source ./paths.sh
+    popd > /dev/null
 
-source $(realpath "${DEVKIT_HOME}/lib/paths.sh")
+    ## BOOTSTRAP ##
+    source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/./bash-oo-framework/lib/oo-bootstrap.sh"
 
-############################################################
-############################################################
-
-## BOOTSTRAP ##
-source "${PROJECT_HOME}/lib/bash-oo-framework/lib/oo-bootstrap.sh"
-source "${PROJECT_HOME}/lib/functions.sh"
+    pushd "${BASH_SOURCE[0]%/*}" > /dev/null
+    source ./functions.sh
+    popd > /dev/null
+}
 
 import util/exception
 import util/
@@ -62,6 +63,6 @@ announce() {
     Log ""
     Log "FILE_DOCKER_COMPOSE: ${FILE_DOCKER_COMPOSE}"
     Log "FILE_AUTHORIZED_KEYS: ${FILE_AUTHORIZED_KEYS}"
-    Log "NAME_DOCKER_CONTAINER_VPN: ${NAME_DOCKER_CONTAINER_VPND}"
+    Log "NAME_DOCKER_CONTAINER_VPN: ${NAME_DOCKER_CONTAINER_BOX}"
     Log ""
 }

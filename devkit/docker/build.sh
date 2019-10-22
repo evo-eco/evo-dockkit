@@ -3,9 +3,10 @@
 set -e
 
 ## make it so you can run from any directory: https://stackoverflow.com/a/16349776/726368
-cd "${0%/*}"
+pushd "${0%/*}" > /dev/null
 
-source "../lib/variables.sh"
+source ../../lib/variables.sh
+#source $(realpath "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/../../lib/variables.sh")
 
 import util/
 
@@ -25,9 +26,11 @@ Log ""
 ./docker-build-sshd.sh
 
 Log ""
-Log "./docker-build-vpnd.sh"
+Log "./docker-build-box.sh"
 Log ""
-docker-build-box.sh
+./docker-build-box.sh
+
+popd > /dev/null
 
 # using colors:
 #echo "$(UI.Color.Blue)I'm blue...$(UI.Color.Default)"

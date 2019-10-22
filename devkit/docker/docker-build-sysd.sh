@@ -2,7 +2,7 @@
 
 set -e
 
-source $(realpath "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/../lib/variables.sh")
+source $(realpath "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/../../lib/variables.sh")
 
 import util/exception
 

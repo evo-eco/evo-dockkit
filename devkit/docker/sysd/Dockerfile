@@ -13,6 +13,8 @@ RUN systemctl set-default multi-user.target
 
 COPY docker-internal-systemd-startup-script.sh /sbin/setup
 
+RUN chmod +x /sbin/setup
+
 STOPSIGNAL SIGRTMIN+3
 
 # tbh, we don't really care about file system size.
