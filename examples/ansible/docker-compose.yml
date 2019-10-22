@@ -7,8 +7,8 @@ services:
   ansible:
     image: evo/devkit:box
     restart: unless-stopped
-    networks:
-      - outside
+#    networks:
+#      - outside
     ports:
       - "2222:22"
     stdin_open: true # TODO: verify required
@@ -25,6 +25,6 @@ services:
       - /run
       - /run/lock
 
-networks:
-  outside:
-    external: true
+#networks:
+#  outside:
+#    external: true

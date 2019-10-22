@@ -23,14 +23,18 @@ import util/
 namespace evo
 
 ## ADD OUTPUT OF "evo" TO DELEGATE STDERR
-Log::AddOutput evo INFO
+Log::AddOutput evo CUSTOM
+
 Log::AddOutput debug DEBUG
 Log::AddOutput default DEBUG
+Log::AddOutput error ERROR
 
 Log::AddOutput devkit DEBUG
 Log::AddOutput devkit-sysd DEBUG
 Log::AddOutput devkit-sshd DEBUG
 Log::AddOutput devkit-vpnd DEBUG
+Log::AddOutput devkit-box DEBUG
+Log::AddOutput devkit-bin DEBUG
 
 to_devkit_home_absolute() {
     echo $(realpath "${DEVKIT_HOME}/$1")
@@ -56,11 +60,13 @@ run_docker_build_script() {
 #  docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
 #}
 
-announce() {
-    Log ""
-    Log "DEVKIT_HOME: ${DEVKIT_HOME}"
-    Log "PROJECT_HOME: ${DEVKIT_HOME}"
-    Log ""
-    Log "NAME_DOCKER_CONTAINER_VPN: ${NAME_DOCKER_CONTAINER_BOX}"
-    Log ""
+announce_env() {
+echo
+    subject=env Log ""
+    subject=env Log "DEVKIT_HOME: ${DEVKIT_HOME}"
+    subject=env Log "PROJECT_HOME: ${DEVKIT_HOME}"
+    subject=env Log ""
+    subject=env Log "NAME_DOCKER_CONTAINER_VPN: ${NAME_DOCKER_CONTAINER_BOX}"
+    subject=env Log ""
+echo
 }

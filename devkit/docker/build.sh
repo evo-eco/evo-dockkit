@@ -13,22 +13,37 @@ import util/
 ## enable basic logging for this file by declaring a namespace
 namespace devkit
 
-announce
+announce_env
 
 Log ""
 Log "running: ./docker-build-sysd.sh"
 Log ""
 ./docker-build-sysd.sh
+echo
 
 Log ""
 Log "running: ./docker-build-sshd.sh"
 Log ""
 ./docker-build-sshd.sh
+echo
 
 Log ""
-Log "./docker-build-box.sh"
+Log "running: ./docker-build-vpnd.sh"
+Log ""
+./docker-build-vpnd.sh
+echo
+
+Log ""
+Log "running: ./docker-build-box.sh"
 Log ""
 ./docker-build-box.sh
+echo
+
+Log ""
+Log "running: ./docker-build-bin.sh"
+Log ""
+./docker-build-bin.sh
+echo
 
 popd > /dev/null
 
