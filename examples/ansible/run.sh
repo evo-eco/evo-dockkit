@@ -14,6 +14,6 @@ ${DEVKIT_HOME}/build.sh
 
 docker-compose up -d
 
-ansible-playbook ansible-playbook.yml
+ansible-playbook ansible-playbook.yml --extra-vars only=devkit
 
 docker-compose down

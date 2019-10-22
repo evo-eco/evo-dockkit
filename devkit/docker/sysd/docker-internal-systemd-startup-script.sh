@@ -6,7 +6,7 @@ set -eu
 if nsenter --mount=/host/proc/1/ns/mnt -- mount | grep /sys/fs/cgroup/systemd >/dev/null 2>&1; then
   echo 'The systemd cgroup hierarchy is already mounted at /sys/fs/cgroup/systemd.'
 else
-  if [ -d /host/sys/fs/cgroup/systemd ]; then
+  if [[ -d /host/sys/fs/cgroup/systemd ]]; then
     echo 'The mount point for the systemd cgroup hierarchy already exists at /sys/fs/cgroup/systemd.'
   else
     echo 'Creating the mount point for the systemd cgroup hierarchy at /sys/fs/cgroup/systemd.'

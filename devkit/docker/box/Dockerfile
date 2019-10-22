@@ -17,7 +17,7 @@ RUN chmod 600 /root/.ssh/authorized_keys
 
 RUN apt-get update
 RUN apt-get install -y sudo
-#RUN apt-get install -y nslookup
+RUN apt-get install -y dnsutils
 
 # https://stackoverflow.com/questions/25845538/how-to-use-sudo-inside-a-docker-container/49529946
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
