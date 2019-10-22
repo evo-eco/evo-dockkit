@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-FILE_AUTHORIZED_KEYS=./authorized_keys
-
 # make it so you can run from any directory: https://stackoverflow.com/a/16349776/726368
 cd "${0%/*}"
 

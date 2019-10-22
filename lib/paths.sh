@@ -14,6 +14,3 @@ NAME_DOCKER_CONTAINER_BOX="${NAME_DEVKIT}_${NAME_DOCKER_SERVICE_BOX}"
 NAME_DOCKER_IMAGE_SYSD="evo/devkit:sysd"
 NAME_DOCKER_IMAGE_SSHD="evo/devkit:sshd"
 NAME_DOCKER_IMAGE_BOX="evo/devkit:box"
-
-FILE_AUTHORIZED_KEYS=$(realpath "${DEVKIT_HOME}/conf/authorized_keys")
-FILE_DOCKER_COMPOSE=$(realpath "${DEVKIT_HOME}/docker-compose.yml")

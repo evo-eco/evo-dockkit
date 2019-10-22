@@ -1,5 +1,0 @@
-Host localhost
-    HostName 127.0.0.1
-    StrictHostKeyChecking accept-new
-    GlobalKnownHostsFile=/dev/null
-    UserKnownHostsFile=/dev/null
