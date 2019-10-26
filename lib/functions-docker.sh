@@ -32,6 +32,7 @@
         local IS_EXISTING=$( is_docker_image_existing ${IMAGE_ALIAS} );
 
         local block="docker image rm --force ${IMAGE_ALIAS}"
+#        local block="docker image rm --force $( get_docker_image_ids ${IMAGE_ALIAS} )"
 
         if [[ "$IS_EXISTING" == "true" ]]; then
             echo_code_block "${block}"

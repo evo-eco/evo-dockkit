@@ -10,18 +10,16 @@ set -e
 #            popd > /dev/null
 #        }
 
+SHARED=$(realpath $(cd "${BASH_SOURCE[0]%/*}" && pwd))
 
-{
-    ## BOOTSTRAP ##
-    source "$(cd "${BASH_SOURCE[0]%/*}" && pwd)/bash-oo-framework/lib/oo-bootstrap.sh"
+pushd "${SHARED}" > /dev/null
+source ../vars.sh
+source functions-all.sh
+popd > /dev/null
 
-    pushd "${BASH_SOURCE[0]%/*}" > /dev/null
-    source ../vars.sh
-    source ./functions-all.sh
-    popd > /dev/null
-}
+## BOOTSTRAP ##
+source "$SHARED/bash-oo-framework/lib/oo-bootstrap.sh"
 
-import util/exception
 import util/
 
 namespace evo

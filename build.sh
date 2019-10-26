@@ -7,7 +7,7 @@ set -e
 
 pushd "${BASH_SOURCE[0]%/*}" > /dev/null
 
-source "lib/shared.sh"
+source lib/shared.sh
 
 # colors + exception traps
 import util/
@@ -18,14 +18,16 @@ namespace evo
 announce_evo
 
 echo
-Log " >>>> BUILD: ./docker/build.sh ($(pwd))"
+Log " >>>> BUILD: ./docker/build.sh"
 
-images/make.sh
+./images/build.sh
 
 popd > /dev/null
 
 echo ""
 echo ""
+
+## TODO: replace this with status
 
 DEVKIT_IMAGE_ID_LIST=$(docker images -q -f reference=evo/devkit)
 DEVKIT_IMAGE_ID_SYSD=$(docker images -q -f reference=evo/devkit:sysd)
@@ -40,27 +42,35 @@ function ref() {
     echo "$(UI.Color.Green)$1$(UI.Color.Default)";
 }
 
+function fade() {
+    echo "$(UI.Color.DarkGray)$1$(UI.Color.Default)";
+}
+
+function header() {
+    echo "$(UI.Color.Red)$(UI.Color.Bold)$1$(UI.Color.Default)";
+}
+
 announce_evo
 
 echo
 echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 echo ""
-echo "  [ IMAGES ]"
+echo "  $(header "[ IMAGES ]")"
 echo ""
-echo "      - ../devkit/docker/$(ref bin)/Dockerfile                           [ imageId=$(ref ${DEVKIT_IMAGE_ID_BIN}) ]"
-echo "      - ../devkit/docker/$(ref bin)/build.sh                             [ docker images -f reference=evo/devkit:bin ]"
+echo "      [ imageId=$(ref ${DEVKIT_IMAGE_ID_BIN}) ]"
+echo "      $(fade "[ docker images -f reference=evo/devkit:bin ]")"
 echo ""
-echo "      - ../devkit/docker/$(ref box)/Dockerfile                           [ imageId=$(ref ${DEVKIT_IMAGE_ID_BOX}) ]"
-echo "      - ../devkit/docker/$(ref box)/build.sh                             [ docker images -f reference=evo/devkit:box ]"
+echo "      [ imageId=$(ref ${DEVKIT_IMAGE_ID_BOX}) ]"
+echo "      $(fade "[ docker images -f reference=evo/devkit:box ]")"
 echo ""
-echo "      - ../devkit/docker/$(ref vpnd)/Dockerfile                          [ imageId=$(ref ${DEVKIT_IMAGE_ID_VPND}) ]"
-echo "      - ../devkit/docker/$(ref vpnd)/build.sh                            [ docker images -f reference=evo/devkit:vpnd ]"
+echo "      [ imageId=$(ref ${DEVKIT_IMAGE_ID_VPND}) ]"
+echo "      $(fade "[ docker images -f reference=evo/devkit:vpnd ]")"
 echo ""
-echo "      - ../devkit/docker/$(ref sshd)/Dockerfile                          [ imageId=$(ref ${DEVKIT_IMAGE_ID_SSHD}) ]"
-echo "      - ../devkit/docker/$(ref sshd)/build.sh                            [ docker images -f reference=evo/devkit:sshd ]"
+echo "      [ imageId=$(ref ${DEVKIT_IMAGE_ID_SSHD}) ]"
+echo "      $(fade "[ docker images -f reference=evo/devkit:sshd ]")"
 echo ""
-echo "      - ../devkit/docker/$(ref sysd)/Dockerfile                          [ imageId=$(ref ${DEVKIT_IMAGE_ID_SYSD}) ]"
-echo "      - ../devkit/docker/$(ref sysd)/build.sh                            [ docker images -f reference=evo/devkit:sysd ]"
+echo "      [ imageId=$(ref ${DEVKIT_IMAGE_ID_SYSD}) ]"
+echo "      $(fade "[ docker images -f reference=evo/devkit:sysd ]")"
 echo ""
 echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 echo
