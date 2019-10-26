@@ -1,22 +1,26 @@
 #!/usr/bin/env bash
 
-SHARED_HOME=$(realpath $( cd "${BASH_SOURCE[0]%/*}" && pwd ))
+set -e
 
-DEVKIT_REPO_CLONE_FOLDER=evo-devkit
-DEVKIT_HOME=$(realpath "$SHARED_HOME/$DEVKIT_REPO_CLONE_FOLDER")
+#SHARED_HOME=$( [[ -z "$PATH_REPO" ]] && $(realpath $( cd "${BASH_SOURCE[0]%/*}" && pwd )) || echo "$PATH_REPO")
+
+#DEVKIT_REPO_CLONE_FOLDER=evo-devkit
+#DEVKIT_HOME=$(realpath "$SHARED_HOME/$DEVKIT_REPO_CLONE_FOLDER")
+
+DEVKIT_HOME=${PATH_TOOLING}
 
 DEVKIT_DOCKER_IMAGE_IDENTIFIER=evo/bins:devkit
-DEVKIT_DOCKER_COMPOSE_FILE=$(realpath "$SHARED_HOME/docker-compose.yml")
+DEVKIT_DOCKER_COMPOSE_FILE=$(realpath "$PATH_INSTALLED/docker-compose.yml")
 
-source $(realpath "$SHARED_HOME/../../lib/functions-util.sh")
-source $(realpath "$SHARED_HOME/../../lib/functions-docker.sh")
+source $(realpath "$PATH_REPO/lib/functions-util.sh")
+source $(realpath "$PATH_REPO/lib/functions-docker.sh")
 
 ## TODO: MOVE THIS INTO THE ACTUAL DEVKIT. NO NEED TO DUPLICATE THESE HELPERS EVERYWHERE WE NEED TO USE THEM.
 
 function build_devkit_image() {
     # TODO: absolute pathing
 
-    ${DEVKIT_HOME}/devkit/build.sh
+    ${PATH_REPO}/build.sh
 
     docker build . -t ${DEVKIT_DOCKER_IMAGE_IDENTIFIER}
 
@@ -24,14 +28,14 @@ function build_devkit_image() {
 
 function is_devkit_exists_repo() {
 
-    [[ -d ${DEVKIT_HOME} ]] && echo "true" || echo "false"
+    [[ -d ${PATH_REPO} ]] && echo "true" || echo "false"
 
 }
 
 function ensure_devkit_exists_repo() {
 
     if [[ $(is_devkit_exists_repo) == "false" ]]; then
-        git clone git@github.com:evo-eco/evo-devkit.git ${DEVKIT_HOME}
+        git clone git@github.com:evo-eco/evo-devkit.git ${PATH_REPO}
     fi
 
 }

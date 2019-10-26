@@ -6,10 +6,12 @@ DEFAULT_PATH=$( cd "${BASH_SOURCE[0]%/*}" && cd .. && pwd )
 YOUR_ABSOLUTE_PATH=$( [[ -z ${PARAM_PATH} ]] && echo ${DEFAULT_PATH} || echo ${PARAM_PATH} )
 
 MY_PATH=$( cd "${BASH_SOURCE[0]%/*}" && pwd )
-LIB_PATH=$(realpath "$MY_PATH/toolbelt")
+LIB_PATH=$(realpath "$MY_PATH/tooling")
 BIN_PATH=$(realpath "$LIB_PATH/bin")
 
 echo "installing to ${YOUR_ABSOLUTE_PATH}"
 
-# ln source destination
-ln -s "$LIB_PATH/toolbelt.sh" "$YOUR_ABSOLUTE_PATH/toolbelt.sh"
+if [[ ! -d "$YOUR_ABSOLUTE_PATH/toolbelt.sh" ]]; then
+    # ln source destination
+    ln -s "$LIB_PATH/toolbelt.sh" "$YOUR_ABSOLUTE_PATH/toolbelt.sh"
+fi
