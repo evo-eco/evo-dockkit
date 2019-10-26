@@ -2,7 +2,7 @@
 
 set -e
 
-source $(realpath "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/../../lib/variables.sh")
+source $(realpath "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/../lib/shared.sh")
 
 import util/exception
 
@@ -13,7 +13,7 @@ Log ""
 Log " === box ==="
 Log ""
 
-run_docker_build_script "box"
+run_docker_build_script "box" ${DEVKIT_REF_BOX}
 
 Log ""
 Log "done!"

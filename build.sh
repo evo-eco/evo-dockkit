@@ -7,7 +7,7 @@ set -e
 
 pushd "${BASH_SOURCE[0]%/*}" > /dev/null
 
-source "../lib/variables.sh"
+source "lib/shared.sh"
 
 # colors + exception traps
 import util/
@@ -20,7 +20,7 @@ announce_evo
 echo
 Log " >>>> BUILD: ./docker/build.sh ($(pwd))"
 
-./docker/build.sh
+images/make.sh
 
 popd > /dev/null
 

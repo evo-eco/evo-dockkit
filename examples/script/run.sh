@@ -11,3 +11,5 @@ ${DEVKIT_HOME}/build.sh
 docker-compose up -d
 
 docker exec devkit_example_script /home/pi/hello-world.sh
+
+docker stop devkit_example_script

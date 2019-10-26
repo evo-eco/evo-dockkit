@@ -2,18 +2,22 @@
 
 set -e
 
-# make it so you can run from any directory: https://stackoverflow.com/a/16349776/726368
+#        # need IntelliJ to know about these vars
+#        {
+#            # make it so you can run from any directory: https://stackoverflow.com/a/16349776/726368
+#            pushd "${0%/*}" > /dev/null
+#            source ../vars.sh
+#            popd > /dev/null
+#        }
+
 
 {
-    pushd "${BASH_SOURCE[0]%/*}" > /dev/null
-    source ./paths.sh
-    popd > /dev/null
-
     ## BOOTSTRAP ##
-    source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/./bash-oo-framework/lib/oo-bootstrap.sh"
+    source "$(cd "${BASH_SOURCE[0]%/*}" && pwd)/bash-oo-framework/lib/oo-bootstrap.sh"
 
     pushd "${BASH_SOURCE[0]%/*}" > /dev/null
-    source ./functions.sh
+    source ../vars.sh
+    source ./functions-all.sh
     popd > /dev/null
 }
 
@@ -37,7 +41,7 @@ Log::AddOutput devkit-box DEBUG
 Log::AddOutput devkit-bin DEBUG
 
 to_devkit_home_absolute() {
-    echo $(realpath "${DEVKIT_HOME}/$1")
+    echo $(realpath "${PATH_REPO_HOME}/$1")
 }
 
 run_devkit_home_relative_script() {
@@ -49,10 +53,13 @@ run_devkit_home_relative_script() {
 
 run_docker_build_script() {
     NAME=$1
-    FILE_NAME="docker/$NAME/build.sh"
+    TAG=$2
+    FILE_NAME="images/$NAME/build.sh"
     ABSOLUTE_FILE_NAME=$(to_devkit_home_absolute ${FILE_NAME})
 
-    exec ${ABSOLUTE_FILE_NAME}
+    echo "exec ${ABSOLUTE_FILE_NAME} ${TAG}"
+
+    exec ${ABSOLUTE_FILE_NAME} ${TAG}
 }
 
 # doesn't work?
@@ -61,10 +68,12 @@ run_docker_build_script() {
 #}
 
 announce_env() {
-echo
+    echo
+
     subject=env Log ""
-    subject=env Log "DEVKIT_HOME: ${DEVKIT_HOME}"
-    subject=env Log "REPO_HOME: ${REPO_HOME}"
+    subject=env Log "DEVKIT_HOME: ${PATH_REPO_HOME}"
+    subject=env Log "REPO_HOME: ${PATH_REPO_HOME}"
     subject=env Log ""
-echo
+
+    echo
 }
