@@ -2,4 +2,4 @@
 
 source ./vars.sh
 
-${PATH_IMAGES_HOME}/reset.sh
+${PATH_IMAGES_HOME}/clean.sh

@@ -27,7 +27,7 @@ function build_devkit_image() {
     pushd ${PATH_INSTALLED};
 
     docker build . -t ${DEVKIT_DOCKER_IMAGE_IDENTIFIER};
-    
+
     popd;
 
 }
@@ -115,5 +115,3 @@ function echo_devkit_status() {
 #    echo "ensure_devkit_exists_image: $(ensure_devkit_exists_image)"
 #    echo "ensure_devkit_exists: $(ensure_devkit_exists)"
 }
-
-echo_devkit_status

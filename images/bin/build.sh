@@ -10,6 +10,8 @@ cd "${0%/*}"
 #Log " >>> SSHd: setup"
 cat ~/.ssh/id_rsa.pub > authorized_keys;
 
-docker build . -t "$TAG"
+if [[ -z $(docker image ls -q -a -f reference="$TAG") ]]; then
+    docker build . -t "$TAG"
+fi
 
 rm authorized_keys;

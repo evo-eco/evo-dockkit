@@ -5,4 +5,6 @@ TAG=$1
 # https://stackoverflow.com/a/16349776/726368
 cd "${0%/*}"
 
-docker build . -t "$TAG"
+if [[ -z $(docker image ls -q -a -f reference="$TAG") ]]; then
+    docker build . -t "$TAG"
+fi

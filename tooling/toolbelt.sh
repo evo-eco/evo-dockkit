@@ -33,6 +33,18 @@ if [[ $1 == "build" ]]; then
     build_devkit_image
 fi
 
+if [[ $1 == "up" ]]; then
+    ensure_devkit_up
+fi
+
+if [[ $1 == "down" ]]; then
+    ensure_devkit_down
+fi
+
+if [[ $1 == "status" ]]; then
+    echo_devkit_status
+fi
+
 popd
 
 popd
