@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # install
 #       mkdir -p ~/projects/devkit-deploy
 #       git clone evo-* to
@@ -21,4 +23,16 @@ else
     PATH_REPO=$(realpath "$PATH_TOOLING/..")
 fi
 
-source "$PATH_TOOLING/tools.sh"
+pushd $PATH_TOOLING
+
+source ./tools.sh
+
+pushd "$PATH_TOOLING/bin"
+
+if [[ $1 == "build" ]]; then
+    build_devkit_image
+fi
+
+popd
+
+popd

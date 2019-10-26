@@ -9,6 +9,8 @@ set -e
 
 DEVKIT_HOME=${PATH_TOOLING}
 
+#if [[ -z $DEVKIT_HOME ]] && exit 100
+
 DEVKIT_DOCKER_IMAGE_IDENTIFIER=evo/bins:devkit
 DEVKIT_DOCKER_COMPOSE_FILE=$(realpath "$PATH_INSTALLED/docker-compose.yml")
 
@@ -22,7 +24,11 @@ function build_devkit_image() {
 
     ${PATH_REPO}/build.sh
 
-    docker build . -t ${DEVKIT_DOCKER_IMAGE_IDENTIFIER}
+    pushd ${PATH_INSTALLED};
+
+    docker build . -t ${DEVKIT_DOCKER_IMAGE_IDENTIFIER};
+    
+    popd;
 
 }
 
