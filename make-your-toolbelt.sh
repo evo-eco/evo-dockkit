@@ -11,7 +11,7 @@ BIN_PATH=$(realpath "$LIB_PATH/bin")
 
 echo "installing to ${YOUR_ABSOLUTE_PATH}"
 
-if [[ ! -d "$YOUR_ABSOLUTE_PATH/toolbelt.sh" ]]; then
+if [[ ! -f "$YOUR_ABSOLUTE_PATH/toolbelt.sh" ]]; then
     # ln source destination
     ln -s "$LIB_PATH/toolbelt.sh" "$YOUR_ABSOLUTE_PATH/toolbelt.sh"
 fi
