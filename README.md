@@ -1,5 +1,7 @@
  
- # devkit
+ # dockkit
+ 
+ This repo is intended to be a submodule in your repo, so that you can have a clean Dockerized test environment/scaffold.
  
     $ docker-compose up
 
