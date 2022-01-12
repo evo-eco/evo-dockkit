@@ -13,7 +13,6 @@ $ ./test-clean-vpnd.sh
 
 #### scripts
 
-
  * `./build-shell-vpnd.sh`
  * `docker-compose -f docker-compose.yml down`
  
